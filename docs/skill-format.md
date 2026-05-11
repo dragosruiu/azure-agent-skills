@@ -6,7 +6,7 @@ A skill is a directory under `skills/` containing one required file —
 ## File layout
 
 ```
-skills/<skill-name>/
+skills/<category>/<skill-name>/
 ├── SKILL.md              # Required
 ├── references/           # Optional: longer-form docs the agent can pull on demand
 │   └── *.md
@@ -15,7 +15,9 @@ skills/<skill-name>/
 ```
 
 `<skill-name>` MUST be lowercase kebab-case and MUST match the `name:` field
-in the frontmatter.
+in the frontmatter. `<category>` is one of the directories enumerated in
+[`../skills/README.md`](../skills/README.md). The validator does not enforce
+the category name — pick the closest fit and discuss in PR if unclear.
 
 ## SKILL.md structure
 

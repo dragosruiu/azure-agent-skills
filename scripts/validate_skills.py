@@ -232,7 +232,10 @@ def main() -> int:
         return 0
 
     report = Report()
-    skill_dirs = sorted(p for p in SKILLS_DIR.iterdir() if p.is_dir())
+    # A skill is any directory that contains a SKILL.md. Categories (dirs
+    # without SKILL.md) are silently skipped — only their child skills count.
+    skill_md_files = sorted(SKILLS_DIR.rglob("SKILL.md"))
+    skill_dirs = [p.parent for p in skill_md_files]
     if not skill_dirs:
         print("no skills found")
         return 0

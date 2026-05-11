@@ -26,20 +26,36 @@ patterns and link to the canonical Microsoft Learn pages for deeper reading.
 
 ```
 .
-├── skills/                     # One directory per Azure capability
-│   └── <skill-name>/
+├── skills/
+│   ├── identity-and-access/    # Auth, RBAC, managed identity, Key Vault
+│   ├── compute/                # App Service, Functions, Container Apps
+│   ├── data/                   # Storage, Cosmos DB, PostgreSQL
+│   ├── networking/             # Private endpoints, Front Door, VNets
+│   ├── integration/            # Service Bus, Event Grid, Event Hubs
+│   ├── ai-and-ml/              # Azure OpenAI, AI Search
+│   ├── observability/          # Monitor, App Insights, diagnostics
+│   ├── devops/                 # GitHub Actions OIDC, Azure DevOps
+│   ├── infrastructure-as-code/ # Bicep, Terraform AzAPI
+│   ├── governance/             # Naming, tagging, Policy
+│   └── <category>/<skill-name>/
 │       ├── SKILL.md            # Required: agent-facing instructions + frontmatter
 │       ├── references/         # Optional: deeper docs the agent can pull in
 │       └── scripts/            # Optional: helper scripts (Bicep, az CLI, etc.)
 ├── docs/
 │   └── skill-format.md         # Spec for the SKILL.md format
 ├── scripts/
-│   ├── generate_skill.py       # Generates a skill from MS Learn URLs
-│   └── validate_skills.py      # Lints SKILL.md frontmatter and structure
+│   ├── generate_skill.py       # Generates a skill from MS Learn URLs (--fetch supported)
+│   └── validate_skills.py      # Lints SKILL.md frontmatter and structure (recursive)
+├── .github/workflows/
+│   └── validate.yml            # CI: runs validator on every push and PR
 ├── CONTRIBUTING.md
 ├── LICENSE
 └── README.md
 ```
+
+The categories match the verbs an agent uses on a real build:
+*"How do I auth this?"* → `identity-and-access`. *"Where do I run my code?"*
+→ `compute`. *"How do I expose this?"* → `networking`. And so on.
 
 ## Skill format (TL;DR)
 

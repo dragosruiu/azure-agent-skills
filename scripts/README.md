@@ -4,7 +4,7 @@ Tooling for authoring and validating skills.
 
 ## `generate_skill.py`
 
-Drafts a new `skills/<name>/SKILL.md` from one or more
+Drafts a new `skills/<category>/<name>/SKILL.md` from one or more
 [Microsoft Learn](https://learn.microsoft.com) URLs.
 
 ```bash
@@ -13,6 +13,26 @@ python scripts/generate_skill.py \
     --service Microsoft.KeyVault/vaults \
     --source https://learn.microsoft.com/azure/key-vault/general/overview \
     --source https://learn.microsoft.com/azure/key-vault/general/security-features
+```
+
+> Note: the generator places skills directly under `skills/<name>/`. For
+> our categorized layout, move the resulting directory into the right
+> category (e.g. `mv skills/azure-key-vault skills/identity-and-access/`).
+> A future iteration may add `--category`.
+
+### `--fetch`
+
+Pass `--fetch` to download each `--source` URL and append the page title,
+headings, and first few code blocks inside an HTML comment block at the
+end of the draft. This gives a human author a quick skim of the page
+structure without leaving the editor. Delete the comment block before
+merging.
+
+```bash
+python scripts/generate_skill.py --fetch \
+    --name azure-key-vault \
+    --service Microsoft.KeyVault/vaults \
+    --source https://learn.microsoft.com/azure/key-vault/general/overview
 ```
 
 The output is a *draft* with stubbed sections. A human MUST review and

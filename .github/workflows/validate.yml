@@ -1,0 +1,34 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-skills:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate SKILL.md files
+        run: python scripts/validate_skills.py
+
+      - name: Smoke-test the generator
+        run: |
+          python scripts/generate_skill.py \
+            --name ci-smoke-test \
+            --service Microsoft.Foo/bars \
+            --source https://learn.microsoft.com/azure/azure-functions/ \
+            --force
+          test -f skills/ci-smoke-test/SKILL.md
+          rm -rf skills/ci-smoke-test
