@@ -1,0 +1,49 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
+
+# Python (generator scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.env
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Node (in case JS-based tooling is added)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Generator scratch / cache
+.cache/
+.skill-drafts/
+*.tmp
+*.bak
+
+# Secrets — never commit
+*.pem
+*.key
+*.pfx
+.env.local
+.env.*.local
+azure-credentials.json
+
+# Bicep / Terraform local state if scripts ever produce it
+*.tfstate
+*.tfstate.*
+.terraform/
+*.bicepparam.local
