@@ -32,6 +32,8 @@ workflow.
 - [`azure-managed-identity`](identity-and-access/azure-managed-identity/SKILL.md) — System vs user-assigned MI; assigning to App Service / Functions / Container Apps; federated credentials for OIDC.
 - [`azure-key-vault`](identity-and-access/azure-key-vault/SKILL.md) — Vault with RBAC authorization, purge protection, soft delete, network ACLs.
 - [`azure-rbac-least-privilege`](identity-and-access/azure-rbac-least-privilege/SKILL.md) — Picking the smallest built-in role for common data-plane tasks.
+- [`entra-app-registration`](identity-and-access/entra-app-registration/SKILL.md) — App reg / SP / FIC / Microsoft Graph Bicep extension; FIC subject patterns for GitHub / AKS / ADO; never client secrets in prod.
+- [`microsoft-graph-from-azure`](identity-and-access/microsoft-graph-from-azure/SKILL.md) — Calling Graph from a managed identity; `.default` scope; granting app roles via `az rest`; throttling + 429 + Retry-After; Sites.Selected over Sites.Read.All.
 
 ### compute
 - [`azure-app-service`](compute/azure-app-service/SKILL.md) — Linux Web App with MI, HTTPS-only, Easy Auth, Key Vault references.
@@ -41,6 +43,7 @@ workflow.
 - [`azure-aks-cluster`](compute/azure-aks-cluster/SKILL.md) — AKS with Entra + Azure RBAC, Azure CNI Overlay, OIDC + Workload Identity, private cluster.
 - [`azure-virtual-machines`](compute/azure-virtual-machines/SKILL.md) — Linux VM with Trusted Launch, Encryption at Host, SSH-only, no public IP, JIT.
 - [`azure-batch`](compute/azure-batch/SKILL.md) — Batch account + pool for HPC / parallel workloads; UAMI; user-subscription pool allocation; low-priority / Spot nodes.
+- [`azure-container-instances`](compute/azure-container-instances/SKILL.md) — ACI for short-lived / burst container workloads; UAMI for ACR pull; subnet delegation (≥/28); `secureValue` env vars; `TenantReuse` DNS scope; logs to LAW.
 
 ### data
 - [`azure-storage-account`](data/azure-storage-account/SKILL.md) — Storage account with TLS 1.2+, no shared key, infra encryption.
@@ -51,6 +54,7 @@ workflow.
 - [`azure-app-configuration`](data/azure-app-configuration/SKILL.md) — App Configuration with `disableLocalAuth`, purge protection, KV references, feature flags.
 - [`azure-data-lake-storage-gen2`](data/azure-data-lake-storage-gen2/SKILL.md) — Storage account with `isHnsEnabled: true`; ABFS endpoints; ACL + RBAC interplay.
 - [`azure-data-explorer`](data/azure-data-explorer/SKILL.md) — ADX cluster + database; KQL data-plane roles (Database Admin/User/Viewer/Ingestor/Monitor); ingestion pipelines.
+- [`azure-files`](data/azure-files/SKILL.md) — SMB / NFS shares; `FileStorage` (Premium) with Entra Kerberos, `allowSharedKeyAccess: false`, soft delete, private endpoint to the `file` sub-resource.
 
 ### networking
 - [`azure-vnet-baseline`](networking/azure-vnet-baseline/SKILL.md) — Hub-spoke pattern, subnet sizing, delegations, NSG default-deny without breaking AzureLoadBalancer.
@@ -61,6 +65,8 @@ workflow.
 - [`azure-vpn-gateway`](networking/azure-vpn-gateway/SKILL.md) — Generation 2 VPN gateway, Active-Active, BGP, P2S Microsoft Entra ID with the new app.
 - [`azure-nat-gateway`](networking/azure-nat-gateway/SKILL.md) — Outbound SNAT for subnets; preferred over outbound rules on Standard LB; PIP exhaustion math.
 - [`azure-private-dns`](networking/azure-private-dns/SKILL.md) — Private DNS zones + VNet links + record sets; the canonical PE companion.
+- [`azure-load-balancer`](networking/azure-load-balancer/SKILL.md) — Standard LB closed-by-default; NSG required on backend; zone-redundant frontend; TCP Reset + `disableOutboundSnat: true` + NAT Gateway for outbound; HA Ports for NVAs.
+- [`azure-bastion`](networking/azure-bastion/SKILL.md) — Secure RDP/SSH without VM public IPs; `AzureBastionSubnet` exact name + /26+; Standard SKU for native client / shareable link / IP-based; Premium for session recording / private-only.
 
 ### integration
 - [`azure-service-bus`](integration/azure-service-bus/SKILL.md) — Premium namespace, Entra-only, queues with DLQ + sessions, RBAC.
@@ -85,6 +91,7 @@ workflow.
 - [`azure-managed-grafana`](observability/azure-managed-grafana/SKILL.md) — Standard tier with system MI, Entra RBAC, private endpoint, Prometheus integration.
 - [`azure-monitor-workbooks`](observability/azure-monitor-workbooks/SKILL.md) — Workbooks-as-code in Bicep via `loadTextContent()`; gallery / `sourceId` mapping.
 - [`azure-log-analytics-workspace`](observability/azure-log-analytics-workspace/SKILL.md) — Foundational LAW: tables w/ Basic / Auxiliary plans, retention, customer-managed keys, daily caps; cross-referenced by App Insights / Sentinel / Defender / diag settings.
+- [`azure-application-insights-availability-tests`](observability/azure-application-insights-availability-tests/SKILL.md) — Standard synthetic tests; ≥5 locations; alert at n−2; mandatory `hidden-link` tag; URL ping retiring 2026-09-30.
 
 ### devops
 - [`github-actions-oidc-to-azure`](devops/github-actions-oidc-to-azure/SKILL.md) — Federated identity for GitHub Actions → Azure with no client secrets.
@@ -116,12 +123,14 @@ workflow.
 
 Wanted but not yet authored:
 
-- `compute/azure-container-instances`, `compute/azure-spring-apps`
-- `data/azure-sql-managed-instance`, `data/azure-cosmos-db-mongo`
-- `ai-and-ml/azure-ai-speech`, `ai-and-ml/azure-ai-vision`, `ai-and-ml/azure-ai-language`
-- `observability/application-insights-availability-tests`
-- `governance/azure-purview` (Microsoft Purview), `governance/azure-lighthouse`
-- `compute/azure-update-manager`
+- `compute/azure-spring-apps`, `compute/azure-update-manager`, `compute/microsoft-dev-box`
+- `data/azure-sql-managed-instance`, `data/azure-cosmos-db-mongo`, `data/microsoft-fabric` (or `azure-synapse-analytics`)
+- `ai-and-ml/azure-ai-speech`, `ai-and-ml/azure-ai-vision`, `ai-and-ml/azure-ai-language`, `ai-and-ml/azure-ai-translator`
+- `observability/azure-chaos-studio`
+- `governance/microsoft-purview`, `governance/azure-lighthouse`
+- `migration/azure-database-migration-service`
+- `iac/azure-deployment-stacks`
+- `edge/azure-iot-hub` (would create a 13th category)
 
 PRs welcome — see [`../CONTRIBUTING.md`](../CONTRIBUTING.md).
 
